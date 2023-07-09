@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
+import Icon from 'react-native-vector-icons/AntDesign'
 
 const FlashCard = ({ nextCard, activities, card, addChoice }) => {
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
             <TouchableOpacity onPress={nextCard}>
-                <Text>No</Text>
+                <Icon name="closecircle" />
             </TouchableOpacity>
 
             <Text>{activities[card]}</Text>
@@ -15,7 +16,7 @@ const FlashCard = ({ nextCard, activities, card, addChoice }) => {
                     nextCard();
                 }}
             >
-                <Text>Yes</Text>
+                <Icon name="checkcircle" />
             </TouchableOpacity>
         </View>
     );
