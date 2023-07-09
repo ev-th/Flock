@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity} from "react-native";
-const CreateEvent = ({ name, nameInput, nameList, eventName, addName, removeName, eventNameInput}) => {
+const CreateEvent = ({ name, nameInput, nameList, eventName, removeName, eventNameInput, addName }) => {
 
     return(
         <>
@@ -13,6 +13,7 @@ const CreateEvent = ({ name, nameInput, nameList, eventName, addName, removeName
             onChangeText={nameInput}
             onSubmitEditing={() => {
                 addName();
+                
             }}
         />
         </View>

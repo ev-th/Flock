@@ -1,84 +1,86 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
-import FlashCardContainer from "../components/FlashCardContainer";
-import { useState } from "react";
-import MatchResults from "../components/MatchResults";
+import { useState, useEffect } from "react";
+import { View, Text, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CreateEvent from "../components/CreateEvent";
+import * as Linking from 'expo-linking';
+import * as Clipboard from 'expo-clipboard';
 
-export default function Home() {
-    const [card, setCard] = useState(0);
-    const [user, setUser] = useState(1);
-    const [results, setResults] = useState(false);
+export default function NewEvent() {
+    const [name, setName] = useState("");
+    const [nameList, setNameList] = useState([]);
+    const [eventName, setEventName] = useState("");
+    const [id, setId] = useState("");
+    const [link, setLink] = useState("");
 
-    const [choices, setChoices] = useState([]);
-    const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
+    // console.log(Linking.createURL("/event/123"))
 
-    const addChoice = choice => {
-        setChoices([...choices, choice]);
-    };
-    console.log(choices);
-
-    const generateMatches = () => {
-        let activityCount = {};
-        activities.forEach(activity => {
-            activityCount[activity] = 0;
-        });
-        choices.forEach(choice => {
-            activityCount[choice] += 1;
-        });
-        return Object.keys(activityCount).filter(activity => {
-            return activityCount[activity] == 2;
-        });
+    const nameInput = text => {
+        setName(text);
     };
 
-    const nextCard = () => {
-        if (user === 1) {
-            if (card === 4) {
-                setCard(0);
-                setUser(2);
-            } else {
-                setCard(card + 1);
-            }
-        } else {
-            if (card === 4) {
-                console.log("reveal results");
-                setResults(true);
-            } else {
-                setCard(card + 1);
-            }
-        }
+    const addName = () => {
+        setNameList([...nameList, name]);
+        setName("");
     };
+
+    const removeName = nameToRemove => {
+        const filteredNames = nameList.filter(name => name !== nameToRemove);
+        setNameList(filteredNames);
+        console.log("remove names called");
+        console.log(nameToRemove);
+    };
+
+    const eventNameInput = text => {
+        setEventName(text);
+    };
+
+    const submitEvent = () => {
+        fetch("http://192.168.0.19:8080/event", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ eventName: eventName, names: nameList }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                
+                // return "id"
+                setId(data)
+                setLink(Linking.createURL(`/event/${data}`))
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
+    const copyToClipboard = async () => {
+        await Clipboard.setStringAsync(link)
+    }
+
+    // useEffect(() => {
+    //     console.log(nameList);
+    // }, [nameList]);
 
     return (
-        <>
-            {/* <View> */}
-
-            {results ? (
-                <MatchResults choices={generateMatches()} />
-            ) : (
-                <>
-                    <View style={styles.container}>
-                        <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
-                        <StatusBar style="auto" />
-                    </View>
-                    <Link style={styles.link} href="/new-event">
-                        New Event
-                    </Link>
-                </>
-            )}
-            {/* </View> */}
-        </>
+        <SafeAreaView>
+           <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName}/>
+            <View>
+                <TouchableOpacity onPress={submitEvent}>
+                    <Text>Generate Link</Text>
+                </TouchableOpacity>
+                <Text>{`Your link is: ${link}`}</Text>
+                
+                <TouchableOpacity onPress={copyToClipboard}>
+                    <Text>Copy</Text>
+                </TouchableOpacity>
+                
+            </View>
+            <View>
+                <Link href="/event-chooser">Choose Activities (next page)</Link>
+            </View>
+            <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
+        </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-    },
-    link: {
-        marginBottom: "10%",
-        marginLeft: "10%",
-    },
-});

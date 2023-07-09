@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const eventSchema = new Schema({
-  event: String,
+  eventName: String,
   names: Array,
   activities: Array
 }, { timestamps: true })

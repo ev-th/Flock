@@ -1,4 +1,6 @@
 import { ScrollView, Text, SafeAreaView } from "react-native";
+import { Link } from "expo-router";
+
 
 export default function MatchResults({ choices }) {
   return (
@@ -9,6 +11,7 @@ export default function MatchResults({ choices }) {
           return <Text testID={"match"} key={index}>{match}</Text>;
         })}
       </ScrollView>
+      <Link href="/">Return to create event</Link>
     </SafeAreaView>
   );
 }
