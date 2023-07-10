@@ -20,8 +20,6 @@ export default function NewEvent() {
     const removeName = nameToRemove => {
         const filteredNames = nameList.filter(name => name !== nameToRemove);
         setNameList(filteredNames);
-        console.log("remove names called");
-        console.log(nameToRemove);
     };
 
     const eventNameInput = text => {
@@ -29,7 +27,7 @@ export default function NewEvent() {
     };
 
     const submitEvent = () => {
-        fetch("https://localhost:1066/event", {
+        fetch("https://localhost:8080/event", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -47,12 +45,12 @@ export default function NewEvent() {
     };
 
     useEffect(() => {
-        console.log(nameList);
+        // console.log(nameList);
     }, [nameList]);
 
     return (
         <SafeAreaView>
-           <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} />
+           <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName}/>
             <View>
                 <TouchableOpacity onPress={submitEvent}>
                     <Text>Generate Link</Text>

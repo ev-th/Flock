@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity} from "react-native";
-const CreateEvent = ({ name, nameInput, nameList, eventName, removeName, eventNameInput}) => {
+const CreateEvent = ({ name, nameInput, nameList, eventName, removeName, eventNameInput, addName}) => {
 
     return(
         <>

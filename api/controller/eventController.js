@@ -22,9 +22,11 @@ const EventController = {
     }
   },
   Create: async (req, res) => {
-    const { event, names, activities  } = req.body
+    const { eventName , names  } = req.body
+    console.log(eventName)
+    console.log(names)
   try {
-    const newEvent = await Event.create({ event, names, activities })
+    const newEvent = await Event.create({ eventName, names, activities })
     res.status(200).json(newEvent._id)
   } catch (error) {
     res.status(400).json({ error: error.message })
