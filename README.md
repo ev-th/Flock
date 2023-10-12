@@ -1,6 +1,8 @@
 # Flock App
 ![Logo](./sheep-and-bird-cropped.png)
 
+![Alt Text](./Flock-gif.gif)
+
 ## Introduction
 
 Flock is a mobile app used to help groups of people work out what to do together. Users create an event with a number of friends which generates possible activities based on location. Friends are invited to choose activities with a link that opens the app directly onto the event page. No sign up is required. Each friend makes choices in their own time by using a swiping feature. Once all friends added to the event have made their choices, all of their matching activity choices are displayed on the results page. Check out our demonstration of the app [here](https://www.youtube.com/watch?v=poiWhBTU_ys&t=285s)
