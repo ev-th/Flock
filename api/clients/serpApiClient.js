@@ -1,3 +1,6 @@
+// The app does not currently use this API due to restrictive rate limits.
+// It was previously used when we presented the app at Makers Demo Day.
+
 const SerpApi = require("google-search-results-nodejs");
 
 require("dotenv").config();

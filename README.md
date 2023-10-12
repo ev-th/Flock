@@ -29,12 +29,11 @@ Put your IP address in a .env file in the main directory
 IP=YOUR_IP_HERE
 ```
 
-You'll need API keys for [OpenAI](https://platform.openai.com/) and [SerpAPI](https://serpapi.com/), which are used for generating the location-based activities. Put the api keys in a .env file in the api directory.
+You'll need an API key for [OpenAI](https://platform.openai.com/), which is used for generating the location-based activities. Put the api key in a .env file in the api directory.
 
 ```bash
 # Flock/api/.env
 
-SERPAPI_KEY=YOUR_API_KEY_HERE
 OPENAI_API_KEY=YOUR_API_KEY_HERE
 ```
 

@@ -7,7 +7,7 @@ class OpenAiClient {
       apiKey: process.env.OPENAI_API_KEY,
     });
     this.openai = new OpenAIApi(configuration);
-    this.prompt = `What are 3 activities I can do with friends in ${location}? Only give me the list. Make each suggestion less than 10 words. Make output new line seperated without numbers.`;
+    this.prompt = `What are 5 activities I can do with friends in ${location}? Only give me the list. Make each suggestion less than 10 words. Make output new line seperated without numbers.`;
   }
 
   activitySearch(callback) {
